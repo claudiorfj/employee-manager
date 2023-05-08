@@ -1,7 +1,8 @@
 package com.claudiorfj.employeemanager.service;
 
 import java.util.UUID;
-
+import java.nio.file.attribute.UserPrincipalNotFoundException;
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,5 +22,23 @@ public class EmployeeService {
     employee.setEmployeeCode(UUID.randomUUID().toString());
     return employeeRepo.save(employee);
   }
+
+  public List<Employee> findAllEmployess(){
+    return employeeRepo.findAll();
+  }
+
+  public Employee updatEmployee(Employee employee) {
+    return employeeRepo.save(employee);
+  }
+
+  public void deleteEmployee(Long id) {
+    employeeRepo.deleteEmployeeById(id);
+  }
+
+  public Employee findEmployeeById(Long id) {
+    return employeeRepo.findEmployeeById(id)
+      .orElseThrow(() -> new UserNotFoundException("User by id " + id + " was not found"));
+  }
+  
 
 }
